@@ -1,0 +1,23 @@
+[33mcommit 2183469ad123e685a34868ef6b24f1a537d9fb82[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Resul <bm.resulaydin@gmail.com>
+Date:   Sun Feb 5 22:34:25 2023 +0300
+
+    8. Ders sonu ve EF bağlantısı tamamiyla yapıldi 05-02-2023
+
+[33mcommit b959c57bc1c1733968d0de9e6620dc95ba2ee42a[m
+Author: Resul <bm.resulaydin@gmail.com>
+Date:   Sun Feb 5 03:33:06 2023 +0300
+
+    EntityFramework ile çalışmadan önceki versiyon değişikliği ve güncellemeler yapıldı.
+
+[33mcommit d4af57ea85488a8dd0ee04279a67d4175df69a77[m
+Author: Resul <bm.resulaydin@gmail.com>
+Date:   Sun Feb 5 03:11:12 2023 +0300
+
+    Hatalar giderildi ve kararlı consol test ortamı kullanıldı.
+
+[33mcommit 8971afb9d6098274bac59cdd5715d26569c35285[m
+Author: Resul <bm.resulaydin@gmail.com>
+Date:   Sat Feb 4 02:40:52 2023 +0300
+
+    ilk commit
