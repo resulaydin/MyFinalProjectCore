@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
             throw new NotImplementedException();
         }
 
-        public List<Product> GetAll()
+        public List<Category> GetAll()
         {
             throw new NotImplementedException();
         }

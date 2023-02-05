@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Entities.Abstract;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,20 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IEntityRepository<T>
+    //1- Eski Yöntem
+    //public interface IEntityRepository<T>
+
+    /*
+        Aşağıda IEntityRepository interface' sine her önüne gelen önüne geldiği nesneyi atayamasın
+        Bu yüzden aşağıdaki şekilde bir sınırlam getirildi.
+        // Buradaki : 
+        // class   -> Referance Tip olmalı
+        // IEntity -> IEntity olabilir veya IEntity implemente eden bir nesne olabilir
+        // new()   -> İlgili nesneler new' lenebilir olmalıdır.
+                   -> Bunu yapmamızın nedeni IEntity nesnesini ilgili Generic içerisine gönderilmesini engellemek
+                   -> Çünkü IEntity interface olduğu için ve interfaceler new' lenemez..
+     */
+    public interface IEntityRepository<T> where T : class,IEntity,new()
     {
         /*
             Expression<Func<T,bool>> filter=null
@@ -19,7 +33,7 @@ namespace DataAccess.Abstract
             * 
          */
         List<T> GetAll(Expression<Func<T,bool>> filter=null);
-        public List<Product> GetAll();
+        public List<T> GetAll();
 
         T Get(Expression<Func<T, bool>> filter );
         void Add(T entity); 
