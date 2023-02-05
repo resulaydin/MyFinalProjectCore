@@ -31,11 +31,6 @@ namespace DataAccess.Concrete.EntityFramework
             throw new NotImplementedException();
         }
 
-        public List<Category> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(Category entity)
         {
             throw new NotImplementedException();

@@ -33,7 +33,6 @@ namespace DataAccess.Abstract
             * 
          */
         List<T> GetAll(Expression<Func<T,bool>> filter=null);
-        public List<T> GetAll();
 
         T Get(Expression<Func<T, bool>> filter );
         void Add(T entity); 
