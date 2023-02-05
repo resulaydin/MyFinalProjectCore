@@ -31,6 +31,11 @@ namespace DataAccess.Concrete.EntityFramework
             throw new NotImplementedException();
         }
 
+        public List<Product> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Product entity)
         {
             throw new NotImplementedException();

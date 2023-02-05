@@ -8,7 +8,10 @@ namespace ConsoleUII
         static void Main(string[] args)
         {
             ProductManager productManager = new ProductManager(new InMemoryProductDal());
-            productManager.GetAll();
+            foreach (var product in productManager.GetAll().Where(p=>p.ProductId>2))
+            {
+                Console.WriteLine(product.ProductName);
+            }
         }
     }
 }
