@@ -14,8 +14,7 @@ namespace DataAccess.Abstract
     {
 
 
-        /*
-         * 1. Yöntem (Eski) 
+        /*---------------- 1.1 Yöntem (Eski) -------------------
          
         List<Product> GetAll();
         List<Product> GetAllByCategory(int categoryId);
