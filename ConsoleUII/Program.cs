@@ -38,9 +38,24 @@ namespace ConsoleUII
                     sağtık -> Quick Actions and Refactorion -> Extract Metod -> ProductTest
                 yazılarak otomatik test metodu oluşturuldu.
              */
-            
-            //ProductTest();
-            CategoryManager categoryManager=new CategoryManager(new EfCategoryDal());
+
+            ProductTest();
+            //CategoryTest();
+        }
+
+        private static void ProductTest()
+        {
+            ProductManager productManager = new ProductManager(new EfProductDal());
+            foreach (var product in productManager.GetProductDetailDtos())
+            {
+                Console.WriteLine(product.ProductName + "   -   " + product.CategoryName+ "   -   " + product.UnitsInStock);
+            }
+
+            Console.WriteLine("---------------------------------------------------");
+        }
+        private static void CategoryTest()
+        {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {
                 Console.WriteLine(category.CategoryName);
@@ -50,15 +65,5 @@ namespace ConsoleUII
             Console.ReadLine();
         }
 
-        private static void ProductTest()
-        {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
-            {
-                Console.WriteLine(product.ProductName + "   -   " + product.UnitPrice);
-            }
-
-            Console.WriteLine("---------------------------------------------------");
-        }
     }
 }

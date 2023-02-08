@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,19 +12,38 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    /* Normalde bu - 
-        (X)  public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>
+    /* Neden X ,IProductDal şeklinde bir kullanım yapmalıyız.
+     * (X)  public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>
       
        1- Bu yapı(X) işimizi görür diye düşünüyorken Engin hoca imdada yetişti ve 'IProductDal'
        yapısının ise Product ile ayrıca işlemler olacaksa yani ileride sadece Product ile ilgili DB Joinleme
        işlermleri Dto lar tarafından olacaksa sadece X yapısına bağımlı bir durum olmasın diye
-       2- Ayrıca bizim SOLID ' de bulunan 'O' kuralına uygun olamsı için yani Business tarafı 'IProductDal' kullanmaktadır
+       2-   Ayrıca bizim SOLID ' de bulunan 'O' kuralına uygun olamsı için yani Business tarafı 'IProductDal' kullanmaktadır
           Dolayısıyla yapının bozulmaması için 'IProductDal' implementasyonunu da yapacaktır. (ÇOOK ÖNEMLİ)
+       3-   Ayrıca tablo olmayan Join verilerinin oluşturulması için DTOs klasörü ve buna bağlı sınıflar, interfaces ler oluş
+          turuldu. Aşağıda IPorductDal üzerinden bu verilere erişim sağlandı.
      */
-      public class EfProductDal : EfEntityRepositoryBase<Product,NorthwindContext>,IProductDal
-     {
+    public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
+    {
+        public List<ProductDetailDto> GetProductDetailDtos()
+        {
+            using (NorthwindContext context=new NorthwindContext())
+            {
+                var result = from p in context.Products
+                             join c in context.Categories
+                             on p.CategoryId equals c.CategoryId
+                             select new ProductDetailDto
+                             { // Aşağıda yazılanlar ProductDetailDto entity' sindeki attribute' lere denk gelmelidir.
+                                 ProductId =p.ProductId,
+                                 ProductName=p.ProductName,
+                                 CategoryName=c.CategoryName,
+                                 UnitsInStock=p.UnitsInStock
+                             };
+                return result.ToList();
 
-     }
+            }
+        }
+    }
 
     /* -------------------------- Bu Eski Yöntem --------------------------------------------
 
