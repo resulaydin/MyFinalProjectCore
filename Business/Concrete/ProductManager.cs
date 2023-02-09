@@ -44,33 +44,65 @@ namespace Business.Concrete
         {
             //İş kodları
             // Yetkisi var mı?
-            /*return _productDal.GetAll();
+            /*1. Yöntem 
+                return _productDal.GetAll();
                 Burası IDataResult<List<Product>> yapılınca kızardı. Bu yüzden geri dönüş
-                değeri ile bilrlikte aşağıdaki gibi bir new IDataResult<List<Product>>(_productDal.GetAll());
+                değeri ile bilrlikte aşağıdaki gibi bir
+             *//*2. Yöntem
+                new DataResult<List < Product >>(_productDal.GetAll(),true,"Ürünler listelendi");
                 yazılarak sonuç halledildir. Çünkü metedumuz bir IDataResult olan geri dönüş istemektedir.
             */
 
-            return new DataResult<List < Product >>(_productDal.GetAll()),true,"Ürünler listelendi");    
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Product>>
+                (_productDal.GetAll(), Messages.ProductsListed);
         }
 
-        public IDataResult<List<Product>>  GetAllByCategoryId(int id)
+        public IDataResult<List<Product>> GetAllByCategoryId(int id)
         {
-            return _productDal.GetAll(p => p.CategoryId == id);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Product>>
+                (_productDal.GetAll(p => p.CategoryId == id));
         }
 
-        public Product GetById(int productId)
+        public IDataResult<Product> GetById(int productId)
         {
-            return _productDal.Get(p => p.ProductId == productId);
+            return new SuccessDataResult<Product>( _productDal.Get(p => p.ProductId == productId));
         }
 
-        public IDataResult<List<Product>>  GetByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
-            return _productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+            return new SuccessDataResult< List < Product >> 
+                (_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetailDtos()
         {
-            return _productDal.GetProductDetailDtos();
+            if (DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult< List <ProductDetailDto>> (_productDal.GetProductDetailDtos());
         }
+
+
+        /* 1. Yöntem (GetProductDetailDtos Metodu)
+            public List<ProductDetailDto> GetProductDetailDtos()
+            {
+               return _productDal.GetProductDetailDtos();
+            }
+        */
+        /* 2. Yöntem (GetProductDetailDtos Metodu)
+            public IDataResult<List<ProductDetailDto>> GetProductDetailDtos()
+            {
+                return new SuccessDataResult< List <ProductDetailDto>> (_productDal.GetProductDetailDtos());
+            }
+        */
     }
 }

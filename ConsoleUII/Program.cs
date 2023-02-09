@@ -6,10 +6,10 @@ using DataAccess.Concrete.InMemory;
 namespace ConsoleUII
 {
     // SOLID 
-        /*
-           - Bu yaptıklarımız " O (Open Closed) - Gelişime açık Değişime Kapalı " 
-           - Yani; yaptığın yazılıma yeni bir özellik ekliyorsan mevcuttaki hiç bir koduna DOKUNAMAZSIN
-         */
+    /*
+       - Bu yaptıklarımız " O (Open Closed) - Gelişime açık Değişime Kapalı " 
+       - Yani; yaptığın yazılıma yeni bir özellik ekliyorsan mevcuttaki hiç bir koduna DOKUNAMAZSIN
+     */
     internal class Program
     {
         static void Main(string[] args)
@@ -46,10 +46,24 @@ namespace ConsoleUII
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetProductDetailDtos())
+            /* 2. Yöntem
+             Şimdilik - productManager.GetProductDetailDtos().Data - şeklinde datasını aldık ancak
+             API' ler ile bunu kontrol altına alacağız.
+            */
+
+            var result = productManager.GetProductDetailDtos();
+            if (result.Success == true)
             {
-                Console.WriteLine(product.ProductName + "   -   " + product.CategoryName+ "   -   " + product.UnitsInStock);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "   -   " + product.CategoryName + "   -   " + product.UnitsInStock);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
 
             Console.WriteLine("---------------------------------------------------");
         }
