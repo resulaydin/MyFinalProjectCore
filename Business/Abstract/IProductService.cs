@@ -16,5 +16,13 @@ namespace Business.Abstract
 
         List<ProductDetailDto> GetProductDetailDtos();
 
+        Product GetById(int productId);
+
+        /// <summary>
+        /// void Add(Product product);
+        /// Aşağıdaki bu kod da bulunan void yerine artık IResult geri dönüş değeri kullanıldı.
+        /// </summary>
+        IResult Add(Product product);
+
     }
 }

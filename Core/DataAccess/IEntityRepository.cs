@@ -31,8 +31,8 @@ namespace Core.DataAccess
             * "filter=null" ifadesinde bu fonksiyonun içerisine filtre vermeyebilirsin demektir. Bu durumda bütün data istenmektedir.
             * 
          */
-        List<T> GetAll(Expression<Func<T,bool>> filter=null);
 
+        List<T> GetAll(Expression<Func<T,bool>> filter=null);
         T Get(Expression<Func<T, bool>> filter );
         void Add(T entity); 
         void Update(T entity);
