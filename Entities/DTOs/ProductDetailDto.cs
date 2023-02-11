@@ -25,3 +25,21 @@ namespace Entities.DTOs
         public short UnitsInStock { get; set; }
     }
 }
+
+/*
+ 
+     [Route("api/[controller]")]
+    // Bu alanın adı javada @Annotation ve C#' ta ise ATTRIBUTE
+    // Bunu yazdığımızda 'ProductsController' sınıfının bir ApiController olduğunu söyleriz
+    // Yani kardeşim kendini 'ApiController' a göre yapılandır deriz.
+    [ApiController]
+    public class ProductsController : ControllerBase
+    {
+        [HttpGet]
+        public string? Get()
+        {
+            return "Merhaba";
+        }
+    }
+}
+ */

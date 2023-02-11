@@ -14,6 +14,8 @@ namespace Core.Utilities.Results
         /*Burada DataResult kızardı ve sonuç olarak bize dedi ki madem ben bir 'Result' um
             bak 'Result' un CTOR ları var bunları da implemente etsene bizde hemen oluşturdur.
          */
+
+        //Sınıf Sınıfı Inheritance yaptığından dolayı base() bir üst sınıf olan Result' dur
         public DataResult(T data, bool succes, string message) : base(succes, message)
         {
             /*  Normalde aynı kodu birden fazla yere yazmak adet değil ancak yukarıda :this(data,succes)
