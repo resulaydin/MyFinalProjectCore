@@ -53,7 +53,7 @@ namespace Business.Concrete
                 yazılarak sonuç halledildir. Çünkü metedumuz bir IDataResult olan geri dönüş istemektedir.
             */
 
-            if (DateTime.Now.Hour == 23)
+            if (DateTime.Now.Hour == 2)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }

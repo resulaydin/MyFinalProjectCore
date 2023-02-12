@@ -23,8 +23,19 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
 
-        [HttpGet]   
-        public List<Product> Get()
+        // 2.4. Yöntem
+        // [HttpGet]
+        [HttpGet("getall")]
+        /*//1.1 Yöntem -
+             public List<Product> Get()
+             {
+                    var result= _productService.GetAll();
+                    return result.Data;
+             }
+        */
+
+        // 2.3 Yöntem işin içerisine artık httpStatus control girecek
+        public IActionResult  Get()
         {
             /*  1. Yöntem - Sorun: Bir Dependency Chain vardı ve 
                     IProductService productService = new ProductManager(new EfProductDal()); 
@@ -38,7 +49,46 @@ namespace WebAPI.Controllers
             // CTOR kısmını herhangi bir yerde çağırmadık. Dolayısıyla işte burada 
             // IoC (Inversion of Control) Container 
             var result= _productService.GetAll();
-            return result.Data;
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
         }
+
+        [HttpPost("add")]
+        public IActionResult Add(Product product)
+        {
+            var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult Get(int id)
+        {
+            var result = _productService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+
+        /* Hata: The request matched multiple endpoints. Matches: 
+            şeklinde Postman tarafında haklı olarak sunucu bir hata verdiğinden dolayı biz problemi çözmek adına
+            [HttpGet("getall")], [HttpGet("getbyid")] ,[HttpPost("add")]
+
+        Daha sonra gidip bizim url' nin sonuna işte bu allians ları kullanacağız.
+        https://localhost:---/api/products/getall
+        
+        denirse yukarıdaki [HttpGet] -> "getall" çalışır
+
+         
+         */
     }
 }
